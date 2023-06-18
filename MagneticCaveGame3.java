@@ -1,5 +1,3 @@
-package com.example.demo;
-
 import java.util.Scanner;
 
 public class MagneticCaveGame {
@@ -203,7 +201,7 @@ public class MagneticCaveGame {
         int[] bestMove = minimax(2, Integer.MIN_VALUE, Integer.MAX_VALUE, true);//the AI will look ahead two moves
         int row = bestMove[1];
         int col = bestMove[2];
-        System.out.println("Player " + currentPlayer.getBrick() + " (AI) chooses row " + row + " and column " + col+"\n");
+        System.out.println("Player " + currentPlayer.getBrick() + " (AI) chooses row " + row + " and column " + col);
         makeMove(row, col);
     }
 
@@ -347,84 +345,49 @@ public class MagneticCaveGame {
 
     public void play() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("_ღ_ WELCOME TO MAGNATIC CAVE GAME _ღ_ \nChoose (1)To play with computer AI \n       (2) Play with Second player");
+        System.out.println("1 computer game \n2 second player");
         int ch=scanner.nextInt();
 
-        if (ch==1){
-            System.out.println("Choose (1) to start with AI Computer and (2) To start with Player ☺");
-            int ch1=scanner.nextInt();
-            if(ch1==2){
-                do {
-                    displayBoard();
+        do {
+            displayBoard();
 
-                    if (currentPlayer == player1) {
-                        System.out.print("Player " + currentPlayer.getBrick() + " (Manual) - Enter row (0-7): ");
-                        int row = scanner.nextInt();
-                        System.out.print("Player " + currentPlayer.getBrick() + " (Manual) - Enter column (0-7): ");
-                        int col = scanner.nextInt();
-                        System.out.println();
-                        if (isMoveValid(row, col)) {
-                            makeMove(row, col);
-                            switchPlayers();
-                        } else {
-                            System.out.println("Invalid move. Try again.");
-                        }
-                    } else {
-                        if(ch==1){
-                            System.out.println("Player " + currentPlayer.getBrick() + " (AI) is making a move...");
-                            makeAIMove();
-                            switchPlayers();
-                        }
-                        else{
-                            System.out.print("\n\nPlayer " + currentPlayer.getBrick() + " (Manual) - Enter row (0-7): ");
-                            int row = scanner.nextInt();
-                            System.out.print("\nPlayer " + currentPlayer.getBrick() + " (Manual) - Enter column (0-7): ");
-                            int col = scanner.nextInt();
-                            System.out.println();
-                            if (isMoveValid(row, col)) {
-                                makeMove(row, col);
-                                switchPlayers();
-                            } else {
-                                System.out.println("Invalid move. Try again.");
-                            }
-                        }
-                    }
-                }while (!isGameOver(0, 0));
-
-                displayBoard();
-                scanner.close();
-            }
-            if(ch1==1){
-                do {
-                    displayBoard();
-                        System.out.println("Player " + currentPlayer.getBrick() + " (AI) is making a move...");
-                        makeAIMove();
-                        displayBoard();
+            if (currentPlayer == player1) {
+                System.out.print("Player " + currentPlayer.getBrick() + " (Manual) - Enter row (0-7): ");
+                int row = scanner.nextInt();
+                System.out.print("Player " + currentPlayer.getBrick() + " (Manual) - Enter column (0-7): ");
+                int col = scanner.nextInt();
+                System.out.println();
+                if (isMoveValid(row, col)) {
+                    makeMove(row, col);
+                    switchPlayers();
+                } else {
+                    System.out.println("Invalid move. Try again.");
+                }
+            } else {
+                if(ch==1){
+                    System.out.println("Player " + currentPlayer.getBrick() + " (AI) is making a move...");
+                    makeAIMove();
+                    switchPlayers();
+                }
+                else{
+                    System.out.print("Player " + currentPlayer.getBrick() + " (Manual) - Enter row (0-7): ");
+                    int row = scanner.nextInt();
+                    System.out.print("Player " + currentPlayer.getBrick() + " (Manual) - Enter column (0-7): ");
+                    int col = scanner.nextInt();
+                    System.out.println();
+                    if (isMoveValid(row, col)) {
+                        makeMove(row, col);
                         switchPlayers();
-                       if(currentPlayer==player2) {
-                            System.out.println("Player " + currentPlayer.getBrick() + " (Manual) - Enter row (0-7): ");
-                            int row = scanner.nextInt();
-                            System.out.println("Player " + currentPlayer.getBrick() + " (Manual) - Enter column (0-7): ");
-                            int col = scanner.nextInt();
-                            System.out.println();
-                            if (isMoveValid(row, col)) {
-                                makeMove(row, col);
-                                switchPlayers();
-                            } else {
-                                System.out.println("Invalid move. Try again.");
-                            }
-                        }
+                    } else {
+                        System.out.println("Invalid move. Try again.");
                     }
-                while (!isGameOver(0, 0));
-                displayBoard();
-                scanner.close();
+                }
             }
+        }while (!isGameOver(0, 0));
 
-        }
-
-        }
-
-
+        displayBoard();
+        scanner.close();
+    }
 
     public static void main(String[] args) {
         MagneticCaveGame game = new MagneticCaveGame();
