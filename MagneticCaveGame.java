@@ -408,21 +408,25 @@ public class MagneticCaveGame {
                     makeAIMove();
                     displayBoard();
                     switchPlayers();
-
-                    while(currentPlayer==player1) {
-                        System.out.println("Player " + currentPlayer.getBrick() + " (Manual) - Enter row (0-7): ");
-                        int row = scanner.nextInt();
-                        System.out.println("Player " + currentPlayer.getBrick() + " (Manual) - Enter column (0-7): ");
-                        int col = scanner.nextInt();
-                        System.out.println();
-                        if (isMoveValid(row, col)) {
-                            makeMove(row, col);
-                            switchPlayers();
-                            break;
-                        } else {
-                            System.out.println("Invalid move. Try again.");
+                    if(!isGameOver(0, 0)){
+                        while(currentPlayer==player1) {
+                            System.out.println("Player " + currentPlayer.getBrick() + " (Manual) - Enter row (0-7): ");
+                            int row = scanner.nextInt();
+                            System.out.println("Player " + currentPlayer.getBrick() + " (Manual) - Enter column (0-7): ");
+                            int col = scanner.nextInt();
+                            System.out.println();
+                            if (isMoveValid(row, col)) {
+                                makeMove(row, col);
+                                switchPlayers();
+                                break;
+                            } else {
+                                System.out.println("Invalid move. Try again.");
+                            }
                         }
                     }
+                    else
+                        break;
+
                 }
                 while (!isGameOver(0, 0));
                 displayBoard();
