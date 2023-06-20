@@ -130,6 +130,32 @@ public class MagneticCaveGame {
 
         // Check diagonal from top-left to bottom-right
         count = 0; //
+        int rr=0,cc=1;
+            while (rr<BOARD_SIZE && cc<BOARD_SIZE) {
+                if (board[rr][cc] == currentPlayer.getBrick()) {
+                    count++;
+                    if (count == 5) {
+                        return true;
+                    }
+                } else {
+                    count = 0;
+                }
+                rr++;
+                cc++;
+            }
+             cc=BOARD_SIZE-1; rr=0;
+        while (rr<BOARD_SIZE && cc<BOARD_SIZE) {
+            if (board[rr][cc] == currentPlayer.getBrick()) {
+                count++;
+                if (count == 5) {
+                    return true;
+                }
+            } else {
+                count = 0;
+            }
+            rr++;
+            cc--;
+        }
         int startRow = row - Math.min(row, col);//
         int startCol = col - Math.min(row, col);//
         for (int r = startRow, c = startCol; r < BOARD_SIZE && c < BOARD_SIZE; r++, c++) {
