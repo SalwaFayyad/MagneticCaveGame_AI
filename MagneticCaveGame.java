@@ -156,6 +156,7 @@ public class MagneticCaveGame {
             rr++;
             cc--;
         }
+
         int startRow = row - Math.min(row, col);//
         int startCol = col - Math.min(row, col);//
         for (int r = startRow, c = startCol; r < BOARD_SIZE && c < BOARD_SIZE; r++, c++) {
@@ -247,7 +248,7 @@ public class MagneticCaveGame {
 
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
-            for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int row =BOARD_SIZE-1 ; row >=0; row++) {
                 for (int col = 0; col < BOARD_SIZE; col++) {
                     if (isMoveValid(row, col)) {
                         makeMove(row, col);
@@ -328,7 +329,6 @@ public class MagneticCaveGame {
             for (int col = 0; col <= BOARD_SIZE - 5; col++) {
                 score += evaluateLine(row, col, 1, 1); // Top left to bottom right
                 score += evaluateLine(row, col + 4, 1, -1); // Top right to bottom left
-//            score += evaluateLine(row+4, col+4, -1, -1);//bottom right to top left
 
             }
         }
