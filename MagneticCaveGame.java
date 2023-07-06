@@ -1,12 +1,18 @@
+package com.example.demo;
 
 import java.util.Scanner;
+
+// “We certify that this submission is the original work of members of the group and meets
+//the Faculty's Expectations of Originality”, 1200430 salwa fayyad ,1200905 sondos ashraf
+//20.06.2023.
+
 
 public class MagneticCaveGame {
     private static final int BOARD_SIZE = 8;
     private static final char EMPTY_CELL = '_';
     private static final char PLAYER_1_BRICK = '■';
     private static final char PLAYER_2_BRICK = '□';
-
+    private static int test=0;
 
     private char[][] board;
     private Player player1;
@@ -131,19 +137,19 @@ public class MagneticCaveGame {
         // Check diagonal from top-left to bottom-right
         count = 0; //
         int rr=0,cc=1;
-            while (rr<BOARD_SIZE && cc<BOARD_SIZE) {
-                if (board[rr][cc] == currentPlayer.getBrick()) {
-                    count++;
-                    if (count == 5) {
-                        return true;
-                    }
-                } else {
-                    count = 0;
+        while (rr<BOARD_SIZE && cc<BOARD_SIZE) {
+            if (board[rr][cc] == currentPlayer.getBrick()) {
+                count++;
+                if (count == 5) {
+                    return true;
                 }
-                rr++;
-                cc++;
+            } else {
+                count = 0;
             }
-             cc=BOARD_SIZE-1; rr=0;
+            rr++;
+            cc++;
+        }
+        cc=BOARD_SIZE-1; rr=0;
         while (rr<BOARD_SIZE && cc<BOARD_SIZE) {
             if (board[rr][cc] == currentPlayer.getBrick()) {
                 count++;
@@ -225,6 +231,7 @@ public class MagneticCaveGame {
         }
     }
 
+
     private void makeAIMove() {
         int[] bestMove = minimax(4, Integer.MIN_VALUE, Integer.MAX_VALUE, true);//the AI will look ahead two moves
         int row = bestMove[1];
@@ -248,7 +255,7 @@ public class MagneticCaveGame {
 
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
-            for (int row =BOARD_SIZE-1 ; row >=0; row++) {
+            for (int row = 0; row < BOARD_SIZE; row++) {
                 for (int col = 0; col < BOARD_SIZE; col++) {
                     if (isMoveValid(row, col)) {
                         makeMove(row, col);
@@ -292,7 +299,6 @@ public class MagneticCaveGame {
             return bestMove;
         }
     }
-
 
     private int evaluateBoard() {
         int score = 0;
@@ -351,17 +357,26 @@ public class MagneticCaveGame {
             col += colStep;
         }
 
-        if (player1Count > 0 && player2Count > 0) {
-            return 0;
-        } else if (player1Count == 0 && player2Count == 0) {
-            return 0;
-        } else if (player1Count > 0) {
-            score -= Math.pow(10, player1Count - 1); // Decrease score for the player's bricks
-        } else if (player2Count > 0) {
-            score += Math.pow(10, player2Count - 1); // Increase score for the computer's bricks
+        if (test==0) {
+            if (player1Count == 0 && player2Count == 0) {
+                return 0;
+            } else if (player1Count > 0) {
+                score -= Math.pow(10, player1Count - 1); // Decrease score for the player's bricks
+            } else if (player2Count > 0) {
+                score += Math.pow(10, player2Count - 1); // Increase score for the computer's bricks
+            }
         }
-
+        if(test==1){
+            if (player1Count == 0 && player2Count == 0) {
+                return 0;
+            } else if (player1Count > 0) {
+                score += Math.pow(10, player1Count - 1); // Decrease score for the player's bricks
+            } else if (player2Count > 0) {
+                score -= Math.pow(10, player2Count - 1); // Increase score for the computer's bricks
+            }
+        }
         return score;
+
     }
 
 
@@ -379,7 +394,7 @@ public class MagneticCaveGame {
 
     public void play() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("_ღ_ WELCOME TO MAGNATIC CAVE GAME _ღ_ \nChoose (1)To play with computer AI \n       (2) Play with Second player");
+        System.out.println("ღ WELCOME TO MAGNATIC CAVE GAME ღ \nChoose (1)To play with computer AI \n       (2) Play with Second player");
         int ch=scanner.nextInt();
 
         if (ch==1){//play with computer AI
@@ -498,10 +513,6 @@ public class MagneticCaveGame {
         }
 
     }
-
-
-
-
 
     public static void main(String[] args) {
         MagneticCaveGame game = new MagneticCaveGame();
